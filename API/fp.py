@@ -24,15 +24,18 @@ try:
 except ImportError:
     import simplejson as json
 
-solr_server = "127.0.0.1"
-tyrant_server = "192.168.3.9"
-#server = "127.0.0.1"
-#server = "162.242.244.91"
+import yaml
+with open('../config.yml', 'r') as f:
+    config = yaml.load(f)
 
-_fp_solr = solr.SolrConnectionPool("http://" + solr_server + ":8502/solr/fp")
+solr_server = config['solr']['url']
+tyrant_server = config['tyrant']['ip']
+tyrant_port = config['tyrant']['port']
+
+_fp_solr = solr.SolrConnectionPool(solr_server)
 _hexpoch = int(time.time() * 1000)
 logger = logging.getLogger(__name__)
-_tyrant_address = [tyrant_server, 1978]
+_tyrant_address = [tyrant_server, tyrant_port]
 _tyrant = None
 _tyrant_lock = None
 

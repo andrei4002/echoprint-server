@@ -15,7 +15,7 @@ Typical usage is with the PyTyrant class which provides a dict-like wrapper
 for the raw Tyrant protocol::
 
     >>> import pytyrant
-    >>> t = pytyrant.PyTyrant.open('127.0.0.1', 1978)
+    >>> t = pytyrant.PyTyrant.open()
     >>> t['__test_key__'] = 'foo'
     >>> t.concat('__test_key__', 'bar')
     >>> print t['__test_key__']
@@ -28,6 +28,12 @@ import socket
 import struct
 import UserDict
 
+with open('../config.yml', 'r') as f:
+    config = yaml.load(f)
+
+tyrant_server = config['tyrant']['ip']
+tyrant_port = config['tyrant']['port']
+
 __version__ = '1.1.17'
 
 __all__ = [
@@ -39,7 +45,6 @@ class TyrantError(Exception):
     pass
 
 
-DEFAULT_PORT = 1978
 MAGIC = 0xc8
 
 
@@ -341,7 +346,7 @@ class PyTyrant(object, UserDict.DictMixin):
 
 class Tyrant(object):
     @classmethod
-    def open(cls, host='127.0.0.1', port=DEFAULT_PORT):
+    def open(cls, host=tyrant_server, port=tyrant_port):
         sock = socket.socket()
         sock.connect((host, port))
         sock.setsockopt(socket.SOL_TCP, socket.TCP_NODELAY, 1)

@@ -1,0 +1,5 @@
+solr:
+  url: http://localhost:8502/solr/fp
+tyrant:
+  ip: localhost
+  port: 1979

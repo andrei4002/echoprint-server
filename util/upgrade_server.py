@@ -20,7 +20,7 @@ import pytyrant
 ROWS_PER_QUERY=1000
 SOURCE = "master"
 
-tyrant = pytyrant.PyTyrant.open("localhost", 1978)
+tyrant = pytyrant.PyTyrant.open()
 now = datetime.datetime.utcnow()
 IMPORTDATE = now.strftime("%Y-%m-%dT%H:%M:%SZ")
 

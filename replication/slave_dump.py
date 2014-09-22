@@ -19,7 +19,7 @@ import csv
 
 SLAVE_NAME="thisslave"
 
-tyrant = pytyrant.PyTyrant.open("localhost", 1978)
+tyrant = pytyrant.PyTyrant.open()
 now = datetime.datetime.utcnow()
 now = now.strftime("%Y-%m-%dT%H:%M:%SZ")
 
